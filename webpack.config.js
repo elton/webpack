@@ -22,16 +22,21 @@ module.exports = {
             },
             exclude: /node_modules/
         },{
-                test: /\.css$/i,
+                test: /(\.css|\.scss)$/i,
                 use: [{
-                    loader:"style-loader"
-                }, {
-                    loader: "css-loader",
+                    loader:"style-loader" // 将 JS 字符串生成为 style 节点
+                },{
+                    loader: "css-loader", // 将 CSS 转化成 CommonJS 模块
                     options: {
-                      modules: {
-                        localIdentName: '[path][name]__[local]--[hash:base64:5]' //use '[path][name]__[local]' for development, use '[hash:base64]' for production
-                      }
+                        importLoaders: 1,
+                        // 0 => no loaders (default);
+                        // 1 => postcss-loader;
+                        modules: {
+                            localIdentName: '[path][name]__[local]--[hash:base64:5]' //use '[path][name]__[local]' for development, use '[hash:base64]' for production
+                        }
                     }
+                },{
+                  loader: 'postcss-loader' // 处理scss之类的文件
                 }]
         }]
     }
