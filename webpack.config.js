@@ -6,6 +6,7 @@ module.exports = {
         path: __dirname + "/public",
         filename: "bundle.js"
     },
+    // “__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录。
 
     devtool: 'eval-source-map',
     devServer: {
@@ -21,14 +22,17 @@ module.exports = {
             },
             exclude: /node_modules/
         },{
-                test: /\.css$/,
+                test: /\.css$/i,
                 use: [{
                     loader:"style-loader"
                 }, {
-                    loader: "css-loader"
+                    loader: "css-loader",
+                    options: {
+                      modules: {
+                        localIdentName: '[path][name]__[local]--[hash:base64:5]' //use '[path][name]__[local]' for development, use '[hash:base64]' for production
+                      }
+                    }
                 }]
         }]
     }
 }
-
-// “__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录。
