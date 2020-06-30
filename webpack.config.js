@@ -1,13 +1,13 @@
 module.exports = {
     mode: 'development', // development 或 production
-    
+
     entry: __dirname + "/app/main.js", //入口文件，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
     output: {
         path: __dirname + "/public",
         filename: "bundle.js"
     },
 
-    devtool:'eval-source-map',
+    devtool: 'eval-source-map',
     devServer: {
         contentBase: './public',
         historyApiFallback: true, //不跳转
@@ -17,14 +17,16 @@ module.exports = {
         rules: [{
             test: /(.jsx|\.js)$/,
             use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        "@babel/preset-env","@babel/preset-react"
-                    ]
-                }
+                loader: 'babel-loader'
             },
-            exclude:/node_modules/
+            exclude: /node_modules/
+        },{
+                test: /\.css$/,
+                use: [{
+                    loader:"style-loader"
+                }, {
+                    loader: "css-loader"
+                }]
         }]
     }
 }
