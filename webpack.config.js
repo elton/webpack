@@ -4,7 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development', // development 或 production
 
-    entry: __dirname + "/app/main.js", //入口文件，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
+    entry: [
+        'react-hot-loader/patch', // React组件热加载
+        __dirname + "/app/main.js" //入口文件，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
+    ], 
     output: {
         path: __dirname + "/dist",
         filename: "bundle.js"
@@ -15,7 +18,8 @@ module.exports = {
     devServer: {
         contentBase: './dist',
         historyApiFallback: true, //不跳转
-        inline: true //实时刷新
+        inline: true, //实时刷新
+        hot:true
     },
     module: {
         rules: [{
@@ -51,6 +55,7 @@ module.exports = {
             title: 'My App',
             template: __dirname + '/app/index.tmpl.html',
             filename: __dirname + '/dist/index.html'
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()//热加载插件        
     ]
 }
