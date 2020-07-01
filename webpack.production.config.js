@@ -14,7 +14,7 @@ module.exports = {
     },
     // “__dirname”是node.js中的一个全局变量，它指向当前执行脚本所在的目录。
 
-    devtool: 'eval-source-map',
+    devtool: 'null',
     devServer: {
         contentBase: './dist',
         historyApiFallback: true, //不跳转
@@ -53,7 +53,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             title: 'My App',
-            template: __dirname + '/app/index.tmpl.html', //模板地址
+            template: __dirname + '/app/index.tmpl.html',
             filename: __dirname + '/dist/index.html'
         }),
         new webpack.HotModuleReplacementPlugin()//热加载插件        
