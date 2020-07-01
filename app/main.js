@@ -1,11 +1,18 @@
 import React from 'react';
-import { render } from 'react-dom';
-import Greeter from './Greeter';
+import ReactDOM from 'react-dom'
+import Greeter from './components/Greeter';
 
-import './main.scss'; //使用require导入css文件
+import './styles/main.scss'; //使用require导入css文件
 
-render(<Greeter />, document.getElementById('root'));
+const render = Component => {
+    ReactDOM.render(
+        <Component />,
+        document.getElementById('root')
+    )
+}
+
+render(Greeter);
 
 if (module.hot) {
-    module.hot.accept()
+    module.hot.accept('./components/Greeter', () => { render(require('./components/Greeter').default)})
 }
